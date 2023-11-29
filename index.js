@@ -9,24 +9,69 @@
 // If possible the latest comment should be at the top - displayed in reverse order (time stamp?)
 
 // Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-  apiKey: "AIzaSyCHDwLNAGMcLRmt_hU2UM6ufa_f35cT6IY",
-  authDomain: "we-are-the-champions-cr.firebaseapp.com",
-  databaseURL: "https://we-are-the-champions-cr-default-rtdb.europe-west1.firebasedatabase.app",
-  projectId: "we-are-the-champions-cr",
-  storageBucket: "we-are-the-champions-cr.appspot.com",
-  messagingSenderId: "246179327076",
-  appId: "1:246179327076:web:08d9b1416df5db67ee0371",
-  measurementId: "G-3JE85HVJPN"
-};
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js"
+import { getDatabase, ref, push, onValue, remove } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-database.js"
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+const appSettings = {
+    databaseURL: "https://we-are-the-champions-cr-default-rtdb.europe-west1.firebasedatabase.app"
+}
+
+const app = initializeApp(appSettings)
+const database = getDatabase(app)
+const endorsementsInDB = ref(database, "endorsements")
+
+const inputFieldEl = document.getElementById("input-field")
+const publishButtonEl = document.getElementById("publish-button")
+const endorsementEl = document.getElementById("endorsements")
+
+publishButtonEl.addEventListener("click", function() {
+    let inputValue = inputFieldEl.value
+    
+    push(endorsementsInDB, inputValue)
+    
+    clearInputFieldEl()
+})
+
+onValue(endorsementsInDB, function(snapshot) {
+    if (snapshot.exists()) {
+        let itemsArray = Object.entries(snapshot.val())
+    
+        clearEndorsementsEl()
+        
+        for (let i = 0; i < itemsArray.length; i++) {
+            let currentItem = itemsArray[i]
+            let currentItemID = currentItem[0]
+            let currentItemValue = currentItem[1]
+            
+            appendItemToEndorsementsEl(currentItem)
+        }    
+    } else {
+        endorsementsEl.innerHTML = "No endorsements here... yet"
+    }
+})
+
+function clearEndorsementsEl() {
+    EndorsementsEl.innerHTML = ""
+}
+
+function clearInputFieldEl() {
+    inputFieldEl.value = ""
+}
+
+function appendItemToEndorsementsEl(item) {
+    let itemID = item[0]
+    let itemValue = item[1]
+    
+    let newEl = document.createElement("li")
+    
+    newEl.textContent = itemValue
+    
+    newEl.addEventListener("click", function() {
+        let exactLocationOfItemInDB = ref(database, `endorsements/${itemID}`)
+        
+        remove(exactLocationOfItemInDB)
+    })
+    
+    endorsementsEl.append(newEl)
+}
