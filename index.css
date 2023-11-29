@@ -33,7 +33,7 @@ textarea {
     margin-bottom: 20px
 }
 
-.publish {
+button {
     width: 317px;
     padding: 10px;
     border-radius: 8px;
@@ -55,4 +55,18 @@ h2 {
     font-weight: 700;
     line-height: normal;
     text-align: center;
+}
+
+.add-endorsements {
+    width: 317px;
+    height: 72px;
+    flex-shrink: 0;
+    background: #fff;
+    border-radius: 8px;
+    color: #1B1924;
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
 }
