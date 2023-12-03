@@ -3,6 +3,7 @@ html, body {
     padding: 0;
     display: block;
     background-color: #04131C;
+    user-select: none;
 }
 
 .main-content {

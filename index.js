@@ -18,8 +18,6 @@ publishButtonEl.addEventListener("click", function() {
     let inputValue = inputFieldEl.value
     
     push(endorsementsInDB, inputValue)
-
-    endorsementEl.innerHTML += `<p>${inputValue}</p>`
     
     clearInputFieldEl()
 })
@@ -27,6 +25,7 @@ publishButtonEl.addEventListener("click", function() {
 onValue(endorsementsInDB, function(snapshot) {
     if (snapshot.exists()) {
         let itemsArray = Object.entries(snapshot.val())
+        itemsArray.reverse()
     
         clearEndorsementsEl()
         
@@ -37,8 +36,8 @@ onValue(endorsementsInDB, function(snapshot) {
             
             appendItemToEndorsementsEl(currentItem)
         }    
-    } else {
-        endorsementEl.innerHTML = "No endorsements here... yet"
+    } else if(!snapshot.exists()){
+        endorsementEl.innerHTML = `<p>"No endorsements here...yet!"</p>`
     }
 })
 
