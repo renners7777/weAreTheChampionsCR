@@ -28,6 +28,7 @@ textarea {
     flex-shrink: 0;
     border-radius: 8px;
     background: #444059;
+    color:#fff;
     text-align: center;
     font-size: 1.8em;
     margin-bottom: 20px
@@ -57,7 +58,7 @@ h2 {
     text-align: center;
 }
 
-#add-endorsements {
+p {
     width: 317px;
     height: 72px;
     flex-shrink: 0;
@@ -65,8 +66,8 @@ h2 {
     border-radius: 8px;
     color: #1B1924;
     font-family: 'Inter', sans-serif;
-    font-size: 12px;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
+    text-align: center;
 }
