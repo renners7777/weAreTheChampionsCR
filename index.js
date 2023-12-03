@@ -23,7 +23,7 @@ const endorsementsInDB = ref(database, "endorsements")
 
 const inputFieldEl = document.getElementById("input-field")
 const publishButtonEl = document.getElementById("publish-button")
-const endorsementEl = document.getElementById("endorsements")
+const endorsementEl = document.getElementById("add-endorsements")
 
 publishButtonEl.addEventListener("click", function() {
     let inputValue = inputFieldEl.value
@@ -63,7 +63,7 @@ function appendItemToEndorsementsEl(item) {
     let itemID = item[0]
     let itemValue = item[1]
     
-    let newEl = document.createElement("li")
+    let newEl = document.createElement("p")
     
     newEl.textContent = itemValue
     

@@ -57,7 +57,7 @@ h2 {
     text-align: center;
 }
 
-.add-endorsements {
+#add-endorsements {
     width: 317px;
     height: 72px;
     flex-shrink: 0;
